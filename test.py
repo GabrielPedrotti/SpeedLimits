@@ -30,6 +30,7 @@ def getClassName(classNo):
     elif classNo == 5: return 'Speed Limit 80 km/h'
     elif classNo == 6: return 'Speed Limit 100 km/h'
     elif classNo == 7: return 'Speed Limit 120 km/h'
+    else: return 'Unknown'
 
 while True: 
     success, imgOriginal = cap.read()
