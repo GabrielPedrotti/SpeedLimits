@@ -2,13 +2,15 @@ import pandas as pd
 import os
 import numpy as np
 import cv2
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
+import seaborn as sns
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout, BatchNormalization, AveragePooling2D
+from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout, AveragePooling2D
 from tensorflow.keras.applications import VGG16
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
+
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
@@ -119,4 +121,19 @@ score = model.evaluate(X_test, y_test, verbose=0)
 print('Test Score:', score[0])
 print('Test Accuracy:', score[1])
 
-model.save('test.h5')
+conf_matrix = confusion_matrix(y_test.argmax(axis=1), model.predict(X_test).argmax(axis=1))
+
+# Imprimir a matriz de confusão
+print("Matriz de Confusão:")
+print(conf_matrix)
+
+# Para uma visualização melhor, você pode usar a biblioteca Seaborn para plotar a matriz de confusão
+plt.figure(figsize=(10,7))
+sns.heatmap(conf_matrix, annot=True, fmt="d")
+plt.xlabel('Valores Previstos')
+plt.ylabel('Valores Verdadeiros')
+plt.title('Matriz de Confusão')
+plt.show()
+
+
+model.save('test2.h5')
