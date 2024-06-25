@@ -40,6 +40,7 @@ for x in range(0, numClasses):
 images = np.array(images)
 classNo = np.array(classNo)
 
+# Holdout
 X_train, X_test, y_train, y_test = train_test_split(images, classNo, test_size=0.2)
 X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=0.2)
 
@@ -82,7 +83,7 @@ y_train = to_categorical(y_train, numClasses)
 y_validation = to_categorical(y_validation, numClasses)
 y_test = to_categorical(y_test, numClasses)
 
-# Carregar modelo base
+# Carregar modelo base lenet
 def model():
     model = Sequential([
         Conv2D(32, (5, 5), activation='relu', input_shape=(imageDimensions[0], imageDimensions[1], 1)),
